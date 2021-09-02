@@ -1,0 +1,8 @@
+name: ClaimSystem
+author: Suchtpotenzial
+main: me.suchtpotenzial.claimsystem.ClaimSystem
+version: 1.0
+commands:
+  claim:
+    aliases:
+      - c

@@ -1,0 +1,15 @@
+me\suchtpotenzial\claimsystem\util\ConfigHandler.class
+me\suchtpotenzial\claimsystem\player\PlayerManager.class
+me\suchtpotenzial\claimsystem\util\ItemStackManager.class
+me\suchtpotenzial\claimsystem\claim\ClaimSerializer.class
+me\suchtpotenzial\claimsystem\claim\ClaimMonitor.class
+me\suchtpotenzial\claimsystem\claim\RegionManager.class
+me\suchtpotenzial\claimsystem\claim\ClaimTool.class
+me\suchtpotenzial\claimsystem\player\PlayerListener.class
+me\suchtpotenzial\claimsystem\player\ClaimPlayer.class
+me\suchtpotenzial\claimsystem\util\Econ.class
+me\suchtpotenzial\claimsystem\claim\Cuboid.class
+me\suchtpotenzial\claimsystem\cmd\ClaimCMD.class
+me\suchtpotenzial\claimsystem\ClaimSystem.class
+me\suchtpotenzial\claimsystem\claim\ClaimManager.class
+me\suchtpotenzial\claimsystem\claim\Claim.class
