@@ -63,9 +63,14 @@ public class ClaimCMD implements CommandExecutor {
                     return false;
                 }
 
+                if (plugin.getClaimManager().getPlayerClaimCount(p) >= plugin.getClaimManager().max_claims && !(plugin.getPlayerManager().getAdminPlayers().contains(plugin.getPlayerManager().getClaimPlayerByPlayer(p)))) {
+                    p.sendMessage(ClaimSystem.PREFIX+"Du hast bereits die maximale Anzahl an Claims erreicht! §8(§e" + plugin.getClaimManager().getPlayerClaimCount(p) + "§8/§e" + plugin.getClaimManager().max_claims + "§8)");
+                    return false;
+                }
+
                 plugin.getClaimManager().newClaim(p, cuboid);
                 plugin.getPlayerManager().resetClaimPlayerAuswahl(claimPlayer);
-                p.sendMessage(ClaimSystem.PREFIX+"Du hast deine Auswahl erfolgreich geclaimed!");
+                p.sendMessage(ClaimSystem.PREFIX+"Du hast deine Auswahl erfolgreich geclaimed! §8(§e" + plugin.getClaimManager().getPlayerClaimCount(p) + "§8/§e" + plugin.getClaimManager().max_claims + "§8)");
 
                 return true;
             }
@@ -183,9 +188,6 @@ public class ClaimCMD implements CommandExecutor {
                 p.sendMessage(plugin.PREFIX+"Alle Claims in deiner Nähe wurden visualisiert!");
                 return true;
             }
-        }
-
-        if (args.length == 1) {
             if (args[0].equalsIgnoreCase("ga") || args[0].equalsIgnoreCase("getAuswahl")) {
 
                 ClaimPlayer claimPlayer = plugin.getPlayerManager().getClaimPlayerByPlayer(p);
@@ -197,9 +199,6 @@ public class ClaimCMD implements CommandExecutor {
                 p.sendMessage(ClaimSystem.PREFIX+"Aktuelle Auswahl:" + claimPlayer.getL1() + " / " + claimPlayer.getL2());
                 return true;
             }
-        }
-
-        if (args.length == 1) {
             if (args[0].equalsIgnoreCase("gc") || args[0].equalsIgnoreCase("getClaims")) {
 
                 if (plugin.getClaimManager().getClaims() == null) {
@@ -216,9 +215,6 @@ public class ClaimCMD implements CommandExecutor {
 
                 return true;
             }
-        }
-
-        if (args.length == 1) {
             if (args[0].equalsIgnoreCase("gnc") || args[0].equalsIgnoreCase("getNearClaims")) {
 
                 if (plugin.getClaimManager().getClaims() == null) {
@@ -235,9 +231,6 @@ public class ClaimCMD implements CommandExecutor {
                 }
                 return true;
             }
-        }
-
-        if (args.length == 1) {
             if (args[0].equalsIgnoreCase("gcp") || args[0].equalsIgnoreCase("getClaimPlayers")) {
 
                 if (plugin.getPlayerManager().getClaimPlayers() == null) {
@@ -252,9 +245,23 @@ public class ClaimCMD implements CommandExecutor {
 
                 return true;
             }
+            if (args[0].equalsIgnoreCase("i") || args[0].equalsIgnoreCase("info")) {
+
+                Claim claim = plugin.getClaimManager().getClaimByLocation(p.getLocation());
+                if (claim == null) {
+                    p.sendMessage(ClaimSystem.PREFIX+"An dieser Stelle befindet sich kein Claim");
+                    return false;
+                }
+
+                plugin.getClaimManager().visualizeClaim(claim,p);
+                p.sendMessage("----------------------------------");
+                p.sendMessage(ClaimSystem.PREFIX+ "Claim by: "+ claim.getOwnerName());
+                p.sendMessage(ClaimSystem.PREFIX+ "Friends: "+ claim.getTrustetPlayerString());
+                p.sendMessage(ClaimSystem.PREFIX+ "Location: "+ claim.getCuboid().toString());
+                p.sendMessage("----------------------------------");
+                return true;
+            }
         }
-
-
         return false;
     }
 }

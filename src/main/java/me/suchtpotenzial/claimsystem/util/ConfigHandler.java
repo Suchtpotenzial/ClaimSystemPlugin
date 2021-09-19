@@ -4,6 +4,7 @@ import me.suchtpotenzial.claimsystem.ClaimSystem;
 import me.suchtpotenzial.claimsystem.claim.Claim;
 import me.suchtpotenzial.claimsystem.claim.ClaimSerializer;
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -13,8 +14,8 @@ import java.util.List;
 
 public class ConfigHandler {
 
-    public static void loadAllClaims() throws IOException, InvalidConfigurationException {
-        File file = new File(ClaimSystem.getPlugin().getDataFolder(),"Claims.yml");
+    public static void loadAllClaims(ClaimSystem plugin) throws IOException, InvalidConfigurationException {
+        File file = new File(plugin.getDataFolder(),"Claims.yml");
 
         YamlConfiguration config = new YamlConfiguration();
         config.load(file);
@@ -24,7 +25,7 @@ public class ConfigHandler {
         for (String all : serializedClaims) {
             claims.add(ClaimSerializer.deserialize(all));
         }
-        ClaimSystem.getPlugin().getClaimManager().claims = claims;
+        plugin.getClaimManager().claims = claims;
     }
 
     public static void writeAllClaimsToFile() {
@@ -45,18 +46,27 @@ public class ConfigHandler {
         }
     }
 
-    public static void loadDefaults(ClaimSystem plugin) {
-        plugin.getConfig().addDefault("claimBlockCost", 100);
-        plugin.getConfig().addDefault("PlayerClaimLimit", 3);
+    public static void loadConfig(ClaimSystem plugin) {
+        FileConfiguration config = plugin.getConfig();
+        plugin.getClaimManager().max_claims = config.getInt("PlayerClaimLimit");
+        plugin.getClaimManager().claim_block_cost = config.getInt("claimBlockCost");
+    }
+
+    public static void saveDefaults(ClaimSystem plugin) {
+        try {
+            plugin.getConfig().addDefault("claimBlockCost", 100);
+            plugin.getConfig().addDefault("PlayerClaimLimit", 3);
+        } catch (Exception e) {}
 
 
         plugin.getConfig().options().copyDefaults(true);
         plugin.saveConfig();
     }
 
-    public static void loadEverything() {
+    public static void loadEverything(ClaimSystem plugin) {
         try {
-            loadAllClaims();
+            loadAllClaims(plugin);
+            loadConfig(plugin);
         } catch (Exception e) {
             e.printStackTrace();
         }

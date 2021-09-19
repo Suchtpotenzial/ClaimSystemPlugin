@@ -30,7 +30,12 @@ public class Claim {
     }
 
     public String getOwnerName() {
-        return Bukkit.getPlayer(owner).getName();
+        try {
+            return Bukkit.getPlayer(owner).getName();
+        } catch (NullPointerException e) {
+
+        }
+        return null;
     }
 
     public List<UUID> getTrustedPlayeres() {

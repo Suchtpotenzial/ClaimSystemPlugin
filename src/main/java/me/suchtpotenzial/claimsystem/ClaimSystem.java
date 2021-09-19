@@ -35,8 +35,8 @@ public class ClaimSystem extends JavaPlugin {
         //this.econ = new Econ();
         //this.claimMonitor = new ClaimMonitor(this);
 
-        ConfigHandler.loadDefaults(this);
-        ConfigHandler.loadEverything();
+        ConfigHandler.saveDefaults(this);
+        ConfigHandler.loadEverything(this);
         init();
 
         /*if (!econ.setupEconomy(this)) {

@@ -14,6 +14,8 @@ public class ClaimManager {
     private ClaimSystem plugin;
 
     public List<Claim> claims;
+    public int max_claims;
+    public double claim_block_cost;
 
     public ClaimManager(ClaimSystem plugin) {
         this.plugin = plugin;
@@ -103,6 +105,10 @@ public class ClaimManager {
             if (claim.getOwner().equals(p.getUniqueId())) playerClaims.add(claim);
         }
         return playerClaims;
+    }
+
+    public int getPlayerClaimCount(Player p) {
+        return getClaimsOfPlayer(p).size();
     }
 
     public void trustPlayer(Claim claim, UUID uuid) {
